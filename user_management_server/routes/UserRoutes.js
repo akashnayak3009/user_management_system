@@ -1,12 +1,17 @@
 import express from 'express';
-import { deleteProfile, signIn, signUp, updateProfile } from '../controllers/UserController.js';
+import { deleteProfile, getAllUserProfile, getUserProfile, signIn, signUp, updateProfile } from '../controllers/UserController.js';
+import {authMiddleware} from '../middleware/authMiddleware.js'
 
 const UserRouter =express.Router();
 
 
 UserRouter.post("/create", signUp);
-UserRouter.get("/fetch", signIn);
+UserRouter.post("/login",signIn)
+
+UserRouter.get("/fetchAllProfile",authMiddleware, getAllUserProfile);
+UserRouter.get("/fetchProfile/:id",getUserProfile);
+
 UserRouter.put("/updateProfile", updateProfile);
-UserRouter.delete("/deleteProfile", deleteProfile);
+UserRouter.delete("/deleteProfile/:id", deleteProfile);
 
 export default UserRouter;

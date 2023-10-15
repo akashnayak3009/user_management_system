@@ -5,6 +5,7 @@ import cors from 'cors';
 import connectDb from "./config/db.js";
 import bodyParser from "body-parser";
 import UserRouter from "./routes/UserRoutes.js";
+import { handleError, notFound } from "./middleware/errorHandler.js";
 
 const app = express();
 app.use(express.json());
@@ -26,6 +27,10 @@ app.use(
 
 //Routes
 app.use("/api/user", UserRouter)
+
+//Error handling routes
+app.use(notFound);
+app.use(handleError);
 
 
 //Connection To server
