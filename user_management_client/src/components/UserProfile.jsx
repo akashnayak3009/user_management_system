@@ -10,7 +10,7 @@ function UserProfile() {
 //   useEffect(() => {
 //     getUsers().then((data) => {
 //       setUserProfiles(data);
-//     });
+//     }); 
 //   }, []);
 
 //   const filteredProfiles = userProfiles.filter((profile) =>

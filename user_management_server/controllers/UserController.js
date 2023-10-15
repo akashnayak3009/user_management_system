@@ -8,6 +8,7 @@ export const signUp = async (req, res) => {
     const email = req.body.email;
 
     try {
+
         const existingUser = await UserProfile.findOne({ email });
         if (existingUser) {
             return res.status(400).json({

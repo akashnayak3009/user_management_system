@@ -1,38 +1,25 @@
 import React, { useState } from "react";
 import "../styles/SignupForm.css";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
 const calculatePasswordStrength = (password) => {
     return password.length * 10;
 };
 
-const isValidEmail = (email) => {
-    const emailRegex = /\S+@\S+\.\S+/;
-    return emailRegex.test(email);
-};
-
 const SignupForm = () => {
-    const [formData, setFormData] = useState({
-        countryCode: "",
-        mobileNumber: "",
-        name: "",
-        email: "",
-        password: "",
-    });
-
+    const [username, setUsername] = useState();
+    const [email, setEmail] = useState();
+    const [mobile, setMobile] = useState();
+    const [password, setPassword] = useState();
     const [passwordStrength, setPasswordStrength] = useState(0);
 
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        mobileNumber: "",
-    });
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
+    const passWordChange = (e) => {
+        setPassword(e.target.value);
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-
         if (name === "password") {
             const strength = calculatePasswordStrength(value);
             // Ensure the strength is not more than 100
@@ -41,41 +28,30 @@ const SignupForm = () => {
         }
     };
 
-    const validateForm = () => {
-        const errors = {};
-
-        if (!formData.email) {
-            errors.email = "Email is required";
-        } else if (!isValidEmail(formData.email)) {
-            errors.email = "Invalid email format";
-        }
-
-        if (!formData.password) {
-            errors.password = "Password is required";
-        }
-
-        if (!formData.mobileNumber) {
-            errors.mobileNumber = "Mobile number is required";
-        }
-
-        setErrors(errors);
-
-        return Object.keys(errors).length === 0;
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-
-        if (validateForm()) {
-            // Handle form submission, e.g., send the data to your server for registration.
+        try{
+            const config = {
+                headers: {
+                  "Content-type": "application/json",
+                },
+              };
+            const response = await axios.post("http://localhost:5000/api/user/create",{email, username, mobile, password})
+            const data=  response.data;
+            console.log(data);
+            toast.success("SignUp successfully");
+            navigate('/login')
+        }catch(error){
+            toast.warning("Error in SignUp");
+            console.log("Error While making it post",error)
         }
     };
-
     return (
         <div className="signup-container">
+            <ToastContainer/>
             <h2>Registration Form</h2>
             <h4 style={{ color: "orange" }}>Otp has sent your mobile number</h4>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={e=>handleSubmit(e)}>
                 <div className="form-group" id="mobile__country">
                     <div style={{ display: "flex" }}>
                         <select
@@ -89,24 +65,25 @@ const SignupForm = () => {
                         </select>
                     </div>
                     <input
-                        type="number"
+                        type="text"
                         name="mobileNumber"
                         id="mobileNumber"
-                        value={formData.mobileNumber}
-                        onChange={handleChange}
+                        value={mobile}
+                        onChange={(e)=>setMobile(e.target.value)}
                         placeholder="Enter Mobile Number"
+                        required
                     />
                 </div>
-                <div className="error-message">{errors.mobileNumber}</div>
 
                 <div className="form-group">
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        value={formData.name}
-                        onChange={handleChange}
+                        value={username}
+                        onChange={(e)=>setUsername(e.target.value)}
                         placeholder="Enter Full Name"
+                        
                     />
                 </div>
 
@@ -115,23 +92,23 @@ const SignupForm = () => {
                         type="email"
                         name="email"
                         id="email"
-                        value={formData.email}
-                        onChange={handleChange}
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
                         placeholder="Enter Email Address"
+                        required
                     />
                 </div>
-                <div className="error-message">{errors.email}</div>
                 <div className="form-group">
                     <input
                         type="password"
                         name="password"
                         id="password"
-                        value={formData.password}
-                        onChange={handleChange}
+                        value={password}
+                        onChange={passWordChange}
                         placeholder="Enter Password here"
+                        required
                     />
                 </div>
-                <div className="error-message">{errors.password}</div>
                 <div className="password-strength">
                     <progress max="100" value={passwordStrength} />
                 </div>
@@ -141,7 +118,7 @@ const SignupForm = () => {
 
                 <div className="form-group">
                     <label>
-                        <input type="checkbox" name="agreeToTerms" id="agreeToTerms" /> I
+                        <input type="checkbox" name="agreeToTerms" id="agreeToTerms" required /> I
                         agree to the terms and conditions
                     </label>
                 </div>
@@ -150,7 +127,7 @@ const SignupForm = () => {
             </form>
 
             <div className="sign-in-link">
-                Already have an account? <button>Sign In</button>
+                Already have an account?<Link to='/login'><button>Sign In</button></Link>
             </div>
         </div>
     );

@@ -1,29 +1,39 @@
 import React, { useState } from "react";
 import "../styles/SignInForm.css"; // Import your CSS file
+import { Link, useNavigate } from "react-router-dom";
+import {ToastContainer,toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import axios from 'axios';
 
 function SignInForm() {
-  const [formData, setFormData] = useState({
-    countryCode: "US",
-    mobileNumber: "",
-    password: "",
-  });
+ const [mobile,setMobile]= useState();
+ const[password, setPassword]=useState();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+ const navigate =useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle sign-in logic here
+    try{
+      const config = {
+          headers: {
+            "Content-type": "application/json",
+          },
+        };
+      const response = await axios.post("http://localhost:5000/api/user/login",{ mobile, password})
+      const data=  response.data;
+      console.log(data);
+      toast.success("SignIn successfully");
+      navigate('/login')
+  }catch(error){
+      toast.warning("Error in SignIN");
+      console.log("Error While making it SignIn",error)
+  }
   };
 
   return (
     <div className="container">
       <h2>Sign In</h2>
+      <ToastContainer/>
       <h4 style={{ color: "orange" }}>OPT has sent to mobile number</h4>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -42,9 +52,10 @@ function SignInForm() {
             type="number"
             name="mobileNumber"
             id="mobileNumber"
-            value={formData.mobileNumber}
-            onChange={handleInputChange}
+            value={mobile}
+            onChange={(e)=>setMobile(e.target.value)}
             placeholder="Enter Mobile Number"
+            required
           />
         </div>
         <div className="form-group">
@@ -52,9 +63,10 @@ function SignInForm() {
             type="password"
             name="password"
             id="password"
-            value={formData.password}
-            onChange={handleInputChange}
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
             placeholder="Enter Password"
+            required
           />
         </div>
         <button type="submit" className="sign-in-button">
@@ -65,7 +77,7 @@ function SignInForm() {
         <p>Forgot Password?</p>
       </div>
       <div>
-        <button className="sign-up-button">Sign up</button>
+        <Link to='/'><button className="sign-up-button">Sign up</button></Link>
       </div>
     </div>
   );
