@@ -1,0 +1,60 @@
+/* Overall styling for the user-profile container */
+.user-profile {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Styling for the "User Profiles" heading */
+.user-profile h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Styling for the search input */
+.user-profile input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Styling for the user list container */
+.user-list {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for individual user cards */
+.user-card {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+/* Styling for user names */
+.user-card h2 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+/* Styling for user details (Email, Mobile, Biography) */
+.user-card p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}

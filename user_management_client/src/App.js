@@ -1,14 +1,11 @@
 
 import './App.css';
-import ForgotPassword from './components/ForgotPassword';
-import SignInForm from './components/SignInForm';
-import SignupForm from './components/SignupForm';
-import VerifyOTP from './components/VerifyOtp';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
-    <VerifyOTP/>
+    <Home/>
     </div>
   );
 }
