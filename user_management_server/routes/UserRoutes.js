@@ -9,9 +9,9 @@ UserRouter.post("/create", signUp);
 UserRouter.post("/login",signIn)
 
 UserRouter.get("/fetchAllProfile",authMiddleware, getAllUserProfile);
-UserRouter.get("/fetchProfile/:id",getUserProfile);
+UserRouter.get("/fetchProfile/:id",authMiddleware,getUserProfile);
 
-UserRouter.put("/updateProfile", updateProfile);
-UserRouter.delete("/deleteProfile/:id", deleteProfile);
+UserRouter.put("/updateProfile",authMiddleware, updateProfile);
+UserRouter.delete("/deleteProfile/:id",authMiddleware, deleteProfile);
 
 export default UserRouter;
