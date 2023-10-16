@@ -8,7 +8,7 @@ const UserRouter =express.Router();
 UserRouter.post("/create", signUp);
 UserRouter.post("/login",signIn)
 
-UserRouter.get("/fetchAllProfile",authMiddleware, getAllUserProfile);
+UserRouter.get("/fetchAllProfile", authMiddleware,getAllUserProfile);
 UserRouter.get("/fetchProfile/:id",authMiddleware,getUserProfile);
 
 UserRouter.put("/updateProfile",authMiddleware, updateProfile);

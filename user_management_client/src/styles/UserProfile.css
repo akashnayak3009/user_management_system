@@ -1,60 +1,51 @@
-/* Overall styling for the user-profile container */
-.user-profile {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  max-width: 400px;
+.user-profile-container {
+  max-width: 100%;
   margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-/* Styling for the "User Profiles" heading */
-.user-profile h1 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-/* Styling for the search input */
-.user-profile input[type="text"] {
+.search-input {
   width: 100%;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #333;
 }
 
-/* Styling for the user list container */
-.user-list {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for individual user cards */
-.user-card {
+.table-header {
+  background-color: #3498db;
+  color: #fff;
+  text-align: left;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 10px 0;
+}
+
+.table-header:first-child {
+  border-top-left-radius: 4px;
+}
+
+.table-header:last-child {
+  border-top-right-radius: 4px;
+}
+
+.user-image {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.user-data {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
   text-align: left;
 }
 
-/* Styling for user names */
-.user-card h2 {
-  font-size: 18px;
-  color: #333;
-  margin: 0;
-}
-
-/* Styling for user details (Email, Mobile, Biography) */
-.user-card p {
-  font-size: 14px;
-  color: #666;
-  margin: 5px 0;
+.no-users {
+  text-align: center;
+  padding: 10px;
 }

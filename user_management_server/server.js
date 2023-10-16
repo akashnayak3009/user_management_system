@@ -6,6 +6,7 @@ import connectDb from "./config/db.js";
 import bodyParser from "body-parser";
 import UserRouter from "./routes/UserRoutes.js";
 import { handleError, notFound } from "./middleware/errorHandler.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
@@ -24,6 +25,9 @@ app.use(
         extended: false,
     })
 );
+
+//cookieParser
+app.use(cookieParser());
 
 //Routes
 app.use("/api/user", UserRouter)

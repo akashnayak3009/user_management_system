@@ -4,10 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import {ToastContainer,toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
+import { useAuth } from "../authContext/AuthContext";
 
 function SignInForm() {
  const [mobile,setMobile]= useState();
  const[password, setPassword]=useState();
+
+ const { login } = useAuth();
+  const [tokenInput, setTokenInput] = useState('');
+
 
  const navigate =useNavigate();
 
@@ -22,8 +27,10 @@ function SignInForm() {
       const response = await axios.post("http://localhost:5000/api/user/login",{ mobile, password})
       const data=  response.data;
       console.log(data);
+      login(data.token);
+      console.log(data.token)
       toast.success("SignIn successfully");
-      navigate('/login')
+      navigate('/home')
   }catch(error){
       toast.warning("Error in SignIN");
       console.log("Error While making it SignIn",error)

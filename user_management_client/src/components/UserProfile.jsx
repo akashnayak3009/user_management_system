@@ -1,42 +1,79 @@
-// UserProfile.js
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../authContext/AuthContext';
 import '../styles/UserProfile.css'
 
+const UserProfile = () => {
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { token } = useAuth();
 
-function UserProfile() {
-//   const [userProfiles, setUserProfiles] = useState([]);
-//   const [searchText, setSearchText] = useState("");
+  const fetchData=async()=>{
+   try{
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get('http://localhost:5000/api/user/fetchAllProfile',config)
+    const data =response.data;
+    console.log(data);
+    setUsers(data.allUser);
+    console.log(data.allUser)
+   }catch(error){
+    console.log(error);
+   }
+  }
 
-//   useEffect(() => {
-//     getUsers().then((data) => {
-//       setUserProfiles(data);
-//     }); 
-//   }, []);
-
-//   const filteredProfiles = userProfiles.filter((profile) =>
-//     profile.username.toLowerCase().includes(searchText.toLowerCase())
-//   );
-
+  // Fetch user data from the API when the component mounts
+  useEffect(() => {
+    fetchData();
+  },[]);
+ 
   return (
-    <div className="user-profile">
-      <h1>User Profiles</h1>
-      <input
-        type="text"
-        placeholder="Search by username"
-        // value={searchText}
-        // onChange={(e) => setSearchText(e.target.value)}
-      />
-      <div className="user-list">
-        
-          <div  className="user-card">
-            <h2></h2>
-            <p>Email: </p>
-            <p>Mobile: </p>
-            <p>Biography:</p>
-          </div>
-      </div>
-    </div>
+    <div className="user-profile-container">
+  <input
+    type="text"
+    className="search-input"
+    placeholder="Search by username"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <table className="user-table">
+    <thead>
+      <tr>
+        <th className="table-header">User Image</th>
+        <th className="table-header">Username</th>
+        <th className="table-header">Mobile</th>
+        <th className="table-header">Email</th>
+        <th className="table-header">Biography</th>
+      </tr>
+    </thead>
+    <tbody>
+      {Array.isArray(users) ? (
+        users.map((user) => (
+          <tr key={user._id}>
+            <td>
+              <img src={user.user_image} alt="User" className="user-image" />
+            </td>
+            <td className="user-data">{user.username}</td>
+            <td className="user-data">{user.mobile}</td>
+            <td className="user-data">{user.email}</td>
+            <td className="user-data">{user.biography}</td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="5" className="no-users">
+            No users to display
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>
+
   );
-}
+};
 
 export default UserProfile;

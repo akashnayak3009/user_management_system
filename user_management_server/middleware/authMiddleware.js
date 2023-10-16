@@ -33,13 +33,13 @@ export const authMiddleware = async (req, res, next) => {
                     req.user = user;
                     next();
                 } else {
-                    throw new Error("User not found");
+                    res.status(401).json({ error: "User not found" });
                 }
             }
         } catch (error) {
-            throw new Error("Not Authorized, please login again");
+            res.status(401).json({ error: "Not Authorized, please login again" });
         }
     } else {
-        throw new Error("No Token Provided");
+        res.status(401).json({ error: "No Token Provided" });
     }
 };
