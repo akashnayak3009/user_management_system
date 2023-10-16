@@ -45,6 +45,7 @@ export const signIn = async (req, res) => {
             status: true,
             message: "Login successfully",
             token,
+            user
         });
     } else {
         res.status(401).json({

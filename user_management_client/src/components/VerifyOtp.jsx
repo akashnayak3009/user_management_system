@@ -1,63 +1,42 @@
-import { useState } from "react";
-import '../styles/VerifyOtp.css'
+import React, { useState } from 'react';
+import OTPInput from 'otp-input-react';
+import '../styles/VerifyOtp.css'; // Import your CSS file
 
+const VerifyOtp = () => {
+  const [otp, setOtp] = useState('');
 
-const VerifyOtp=() => {
-    const [otp, setOTP] = useState(['', '', '', '']); // Create an array to store OTP digits
-  const [verificationStatus, setVerificationStatus] = useState('');
-
-  const handleOTPChange = (e, index) => {
-    const value = e.target.value;
-
-    // Ensure that the value is a single digit
-    if (/^[0-9]$/.test(value) || value === '') {
-      // Create a copy of the OTP array and update the specified index
-      const updatedOTP = [...otp];
-      updatedOTP[index] = value;
-      setOTP(updatedOTP);
-    }
+  const handleOtpChange = (value) => {
+    setOtp(value);
   };
 
-  const handleVerification = () => {
-    const enteredOTP = otp.join(''); // Combine the OTP digits
-
-    // You can add your verification logic here.
-    // For a simple example, we'll compare the entered OTP with a hardcoded value.
-    const correctOTP = '1234';
-
-    if (enteredOTP === correctOTP) {
-      setVerificationStatus('Verification successful!');
-    } else {
-      setVerificationStatus('Verification failed. Please try again.');
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // You can add your OTP verification logic here
+    // For demonstration purposes, we'll just log the OTP value for now
+    console.log('OTP submitted:', otp);
   };
-    return (
-        <div className="otp-verification">
-        <h1>OTP Verification</h1>
-        <h3>Enter OTP sent to registered mobile</h3>
-        <div className="otp-input-container">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              type="text"
-              placeholder="0"
-              value={digit}
-              onChange={(e) => handleOTPChange(e, index)}
-              className="otp-input"
-            />
-          ))}
-        </div>
-        <div>
-            <p>Resend OTP in 12 sec</p>
-        </div>
-        <button onClick={handleVerification} className="verify-button">
-          Verify OTP
+
+  return (
+    <div className="verify-otp-container">
+      <h2>Verify OTP</h2>
+      <form className="verify-otp-form" onSubmit={handleSubmit}>
+        <label htmlFor="otp" className="verify-otp-label">
+          Enter OTP:
+        </label>
+        <OTPInput
+          value={otp}
+          onChange={handleOtpChange}
+          inputClassName="otp-input" // Apply the OTP input class
+          inputMode="numeric"
+          autoFocus
+          numInputs={6} // Assuming OTPs are 6 characters long
+        />
+        <button type="submit" className="verify-button">
+          Verify
         </button>
-        <p className="verification-status">{verificationStatus}</p>
-      </div>
-      
-    );
-  }
-  
-  export default VerifyOtp;
-  
+      </form>
+    </div>
+  );
+};
+
+export default VerifyOtp;

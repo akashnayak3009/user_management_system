@@ -10,7 +10,7 @@ function SignInForm() {
  const [mobile,setMobile]= useState();
  const[password, setPassword]=useState();
 
- const { login } = useAuth();
+ const { login, userAuthId } = useAuth();
   const [tokenInput, setTokenInput] = useState('');
 
 
@@ -31,6 +31,8 @@ function SignInForm() {
       console.log(data.token)
       toast.success("SignIn successfully");
       navigate('/home')
+      console.log(data.user._id)
+      userAuthId(data.user._id);
   }catch(error){
       toast.warning("Error in SignIN");
       console.log("Error While making it SignIn",error)
