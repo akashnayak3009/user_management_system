@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import OTPInput from 'otp-input-react';
 import '../styles/VerifyOtp.css'; // Import your CSS file
+import { getAuth, RecaptchaVerifier } from "firebase/auth";
 
 const VerifyOtp = () => {
+
+ 
+
+const auth = getAuth();
+window.recaptchaVerifier = new RecaptchaVerifier(auth, 'sign-in-button', {
+  'size': 'invisible',
+  'callback': (response) => {
+    // reCAPTCHA solved, allow signInWithPhoneNumber.
+    // onSignInSubmit();
+  }
+});
   const [otp, setOtp] = useState('');
 
   const handleOtpChange = (value) => {
@@ -18,6 +30,15 @@ const VerifyOtp = () => {
 
   return (
     <div className="verify-otp-container">
+      <div>
+      <h2>Login Form</h2>
+        <form>
+          <div id="sign-in-button"></div>
+          <input type="number" name="mobile" placeholder="Mobile number" required/>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+
       <h2>Verify OTP</h2>
       <form className="verify-otp-form" onSubmit={handleSubmit}>
         <label htmlFor="otp" className="verify-otp-label">
