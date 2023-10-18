@@ -1,11 +1,14 @@
 
 import './App.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import SignupForm from './components/SignupForm'
 import SignInForm from './components/SignInForm'
 import Home from './pages/Home'
 import VerifyOtp from './components/VerifyOtp'
 import UpdateForm from './components/UpdateForm'
+import NotFound from './components/NotFound';
+import { useAuth } from './authContext/AuthContext';
+import { PrivateRoute, ProtectRoute } from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -13,9 +16,10 @@ function App() {
       <Routes>
         <Route exact path="/" element={<SignupForm/>}/>
         <Route exact path="/login" element={<SignInForm/>}/>
-        <Route exact path="/home" element={<Home/>}/>
+        <Route path="/home" element={<PrivateRoute />}  />
+        <Route path="/update" element={<ProtectRoute />} />
         <Route exact path="/verify" element={<VerifyOtp/>}/>
-        <Route exact path="/update" element={<UpdateForm/>}/>
+        <Route path="*" element={<NotFound />} />
       </Routes>
    </BrowserRouter>
   );

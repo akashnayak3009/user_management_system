@@ -75,7 +75,6 @@ export const getAllUserProfile = async (req, res) => {
 export const getUserProfile = async (req, res) => {
     const { id } = req.params;
     try {
-        validateMongodbId(id);
         const getProfile = await UserProfile.findById(id);
         if (getProfile) {
             return res.status(200).json({

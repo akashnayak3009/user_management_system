@@ -17,6 +17,19 @@ const SignupForm = () => {
 
     const navigate = useNavigate();
 
+    const handleMobileChange = (e) => {
+        const inputValue = e.target.value;
+        const numericValue = inputValue.replace(/\D/g, '');
+        const truncatedValue = numericValue.slice(0, 10);
+    
+        // Check if the input contains non-digit characters
+        if (inputValue !== numericValue) {
+          toast.info('Mobile number must contain only digits.');
+        } 
+    
+        setMobile(truncatedValue);
+      };
+
     const passWordChange = (e) => {
         setPassword(e.target.value);
         const { name, value } = e.target;
@@ -37,12 +50,13 @@ const SignupForm = () => {
                 },
               };
             const response = await axios.post("http://localhost:5000/api/user/create",{email, username, mobile, password})
+            toast.success("SignUp successfully");
             const data=  response.data;
             console.log(data);
             toast.success("SignUp successfully");
             navigate('/login')
         }catch(error){
-            toast.warning("Error in SignUp");
+            toast.warning("Unique credentials required");
             console.log("Error While making it post",error)
         }
     };
@@ -69,7 +83,7 @@ const SignupForm = () => {
                         name="mobileNumber"
                         id="mobileNumber"
                         value={mobile}
-                        onChange={(e)=>setMobile(e.target.value)}
+                        onChange={handleMobileChange}
                         placeholder="Enter Mobile Number"
                         required
                     />

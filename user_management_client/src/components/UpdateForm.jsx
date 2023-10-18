@@ -4,10 +4,13 @@ import { useAuth } from "../authContext/AuthContext";
 import "../styles/UpdateForm.css";
 import {ToastContainer,toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Link, useNavigate } from "react-router-dom";
 
 function UpdateForm() {
   const [userProfile, setUserProfile] = useState([]);
   const { token, userId } = useAuth();
+
+  const navigate = useNavigate();
 
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,7 +19,6 @@ function UpdateForm() {
     mobile: userProfile.mobile,
     biography: userProfile.biography,
   });
-  const [newPassword, setNewPassword] = useState("");
 
   const handleUpdateClick = () => {
     setEditMode(true);
@@ -80,10 +82,35 @@ function UpdateForm() {
       toast.warning("Profile updated Failed")
     }
   };
+  
+  const handleDeleteClick=async()=>{
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.delete(
+        `http://localhost:5000/api/user/deleteProfile/${userId}`,
+        config
+      );
+      console.log("Account Deleted");
+      toast.success("Profile Deleted")
+      navigate('/')
+    } catch (error) {
+      console.log("Error while deleting profile", error);
+      toast.warning("Profile deleted Failed")
+    }
+  }
+
+  const handleBackClick=()=>{
+    setEditMode(false)
+  }
 
   return (
     <div className="profile-container">
       <ToastContainer/>
+      <Link className="back-link" to='/home'>Back</Link>
       <div className="left-side">
         <div className="user-image">
           <img src={userProfile.user_image} alt="User" />
@@ -124,6 +151,10 @@ function UpdateForm() {
             <button className="update__button" onClick={handleSaveClick}>
               Save
             </button>
+            <button className="cancel__button" onClick={handleBackClick}>
+              cancel
+            </button>
+          
           </>
         ) : (
           <>
@@ -133,6 +164,9 @@ function UpdateForm() {
             <p>Biography: {userProfile.biography}</p>
             <button className="update__button" onClick={handleUpdateClick}>
               Update
+            </button>
+            <button className="delete__button" onClick={handleDeleteClick}>
+              Delete Profile
             </button>
           </>
         )}

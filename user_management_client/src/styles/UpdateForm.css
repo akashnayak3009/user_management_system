@@ -1,58 +1,78 @@
-/* Apply basic styles to the entire page */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
 
-  /* Create the left and right columns */
-  .profile-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width:100%;
-  }
-  
-  .left-side {
-    width: 30%;
-  }
-  
-  .right-side {
-    width: 68%; /* Leave some space for margin */
-  }
-  
-  /* Style the user image */
-  .user-image img {
-    width: 100px;
-    height: auto;
-    border: 2px solid #333;
-    border-radius: 50%;
-  }
-  
-  /* Style buttons */
-  .change__button, .update__button {
-    display: block;
-    width: 30%;
-    padding: 10px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 60px;
-    font-weight: bold;
-  }
-  
-  .change__button:hover, .update__button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Style user information */
-  h2, p {
-    margin: 0;
-    padding: 5px;
-  }
+.left-side {
+  flex: 1;
+}
 
-  
-  
+.right-side {
+  flex: 2;
+}
+
+.user-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.change__button {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel__button{
+  background-color: orange;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update__button {
+  background-color: #007BFF;
+  color: #fff;
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.delete__button {
+  background-color: red;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-link {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  text-decoration: none;
+  color: #007BFF;
+}

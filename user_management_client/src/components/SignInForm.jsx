@@ -34,7 +34,7 @@ function SignInForm() {
       console.log(data.user._id)
       userAuthId(data.user._id);
   }catch(error){
-      toast.warning("Error in SignIN");
+      toast.warning("Invalid Credentials");
       console.log("Error While making it SignIn",error)
   }
   };
