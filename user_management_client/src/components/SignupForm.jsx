@@ -26,7 +26,6 @@ const SignupForm = () => {
         if (inputValue !== numericValue) {
           toast.info('Mobile number must contain only digits.');
         } 
-    
         setMobile(truncatedValue);
       };
 
@@ -64,7 +63,6 @@ const SignupForm = () => {
         <div className="signup-container">
             <ToastContainer/>
             <h2>Registration Form</h2>
-            <h4 style={{ color: "orange" }}>Otp has sent your mobile number</h4>
             <form onSubmit={e=>handleSubmit(e)}>
                 <div className="form-group" id="mobile__country">
                     <div style={{ display: "flex" }}>

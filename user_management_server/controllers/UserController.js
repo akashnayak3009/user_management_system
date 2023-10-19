@@ -1,6 +1,7 @@
 import UserProfile from "../models/UserProfileModel.js";
 import { generateToken } from "../config/jwtToken.js";
 import {validateMongodbId} from '../config/validateMongoDbId.js'
+import bcrypt from 'bcryptjs'
 
 //@Desc Create the user Profile
 //@Method POST method
@@ -103,6 +104,12 @@ export const updateProfile = async (req, res) => {
     const { _id } = req.user;
 try {
   validateMongodbId(_id); 
+     if (req.body.password) {
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+      req.body.password = hashedPassword;
+  }
+
   const user = await UserProfile.findByIdAndUpdate(_id, req.body, { new: true });
   if (user) {
     return res.status(200).json({
@@ -152,3 +159,17 @@ export const deleteProfile = async (req, res) => {
     }
     
 };
+
+//@Desc find the password
+//@Method POST method
+export const findPhone =async(req, res) =>{
+  try{
+
+  }catch(error){
+    console.error("Error while Fetching Phone:", error);
+    return res.status(500).json({
+      status: false,
+      message: "Internal Server Error",
+    });
+  }
+}

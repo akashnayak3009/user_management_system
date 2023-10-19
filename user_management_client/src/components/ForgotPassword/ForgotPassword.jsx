@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/ForgotPassword.css";
+import "../../styles/ForgotPassword.css";
+import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
     return (
         <div className="forgot__password">
             <h2>Forgot Password</h2>
-            <h4 style={{ color: "orange" }}>OPT has sent to mobile number</h4>
             <form>
                 <div className="form-group">
                     <div style={{ display: "flex" }}>
@@ -26,11 +26,15 @@ const ForgotPassword = () => {
                         placeholder="Enter Mobile Number"
                     />
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit">Submit</button>
             </form>
             <div className="sign-in-link">
-                Already have an account? <button>Sign In</button>
+                New User. <Link to='/'><button>Sign Up</button></Link>
             </div>
+            <div className="sign-in-link">
+                Already have an account? <Link to='/login'><button>Sign In</button></Link>
+            </div>
+
         </div>
     );
 };
