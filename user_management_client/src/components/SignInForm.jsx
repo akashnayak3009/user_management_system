@@ -156,7 +156,7 @@
 //             </button>
 //           </form>
 //           <div>
-//             <Link to="/forgot"><p>Forgot Password?</p></Link>
+//             <Link to="/password-reset"><p>Forgot Password?</p></Link>
 //           </div>
 //           <div>
 //             <Link to="/">
@@ -256,7 +256,7 @@ function SignInForm() {
         </button>
       </form>
       <div>
-      <Link to="/forgot"><p>Forgot Password?</p></Link>
+      <Link to="/password-reset"><p>Forgot Password?</p></Link>
       </div>
       <div>
         <Link to='/'><button className="sign-up-button">Sign up</button></Link>

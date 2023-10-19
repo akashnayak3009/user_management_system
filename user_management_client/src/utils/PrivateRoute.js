@@ -9,7 +9,7 @@ import UpdateForm from '../components/UpdateForm';
 export function PrivateRoute({ element, path}) {
   const { isAuthenticated } = useAuth();
     return isAuthenticated ? (
-      <Home/> || <UpdateForm/>
+      <Home/> 
     ) : (
       <Navigate to="/login" />
     );

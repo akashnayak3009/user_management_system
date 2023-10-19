@@ -12,8 +12,6 @@ const VerifyOtp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add your OTP verification logic here
-    // For demonstration purposes, we'll just log the OTP value for now
     console.log('OTP submitted:', otp);
   };
 
