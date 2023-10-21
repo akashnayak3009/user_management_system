@@ -38,6 +38,10 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
   const { mobile, password } = req.body;
 
+  if(!mobile && !password){
+    return res.status(400).json({status:false, message:"Mobile and password is empty"})
+  }
+  
   const user = await UserProfile.findOne({ mobile });
 
   if (user && (await user.isPasswordMatched(password))) {
